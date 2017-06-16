@@ -19,6 +19,7 @@ angular.module('guidePage.controller', ['guidePage.service'])
 
     $scope.func_goHome=function(){
       localStorage["isFirst"]=true;
+		    //里面是路由名称不是url
       $state.go('tab.home');
     }
 

@@ -1,5 +1,5 @@
 // Ionic Starter App
-angular.module('route', ['guidePage.route','tab.route','home.route','category.route'])
+angular.module('route', ['guidePage.route','tab.route','home.route','category.route','goodsList.route'])
 
 		.config(function($stateProvider, $urlRouterProvider) {
 
