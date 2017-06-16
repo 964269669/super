@@ -1,5 +1,5 @@
 // Ionic Starter App
-angular.module('route', ['guidePage.route','tab.route'])
+angular.module('route', ['guidePage.route','tab.route','home.route'])
 
 		.config(function($stateProvider, $urlRouterProvider) {
 
@@ -50,6 +50,6 @@ angular.module('route', ['guidePage.route','tab.route'])
 						});
 
 				// if none of the above states are matched, use this as the fallback
-				$urlRouterProvider.otherwise('/tab/dash');
+				$urlRouterProvider.otherwise('/tab/home');
 
 		});

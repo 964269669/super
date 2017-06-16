@@ -8,7 +8,7 @@ angular.module('tab.controller', [])
     };
 
     $scope.$on('$ionicView.beforeEnter', function (e) {
-      IndexdbJs.getAll("cart",function(data){
+      /*IndexdbJs.getAll("cart",function(data){
         if(data.length>0)
         {
           $scope.obj_cartCount.count="0";
@@ -16,7 +16,7 @@ angular.module('tab.controller', [])
             $scope.obj_cartCount.count=parseInt($scope.obj_cartCount.count)+parseInt(data[i].number);
           }
         }
-      },null)
+      },null)*/
     });
 
   })

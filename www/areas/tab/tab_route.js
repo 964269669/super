@@ -6,7 +6,7 @@ angular.module('tab.route', ['tab.controller'])
 
       .state('tab', {
         url: '/tab',
-        abstract: true,
+        abstract: true,//抽象路由
         templateUrl: 'areas/tab/tab.html',
         controller: 'TabCtrl'
       })
