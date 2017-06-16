@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "swiper": "^3.4.2",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "ionic-image-lazy-load": "ion-image-lazy-load#*"
   }
 }

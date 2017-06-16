@@ -7,12 +7,12 @@ angular.module('home.controller', ['home.service'])
     countdown();
     headerChangeColor();
 
-    //// 监听页面激活事件
+    // 监听页面激活事件
     $scope.$on('$ionicView.enter',function(){
       initHeaderSlide();
       initToutiaoSlide();
 
-    })
+    });
 
     // 头部滚动条数据
     function getHeaderSlideData(){
@@ -52,7 +52,7 @@ angular.module('home.controller', ['home.service'])
         loop: true,
         // 如果需要分页器
         pagination: '.swiper-pagination',
-        // 改变自动更新
+        // 改变自动更新  当修改swiper的子元素时，自动重新执行swiper
         observer:true,
         observeParents:true
 
@@ -68,7 +68,7 @@ angular.module('home.controller', ['home.service'])
         //observeParents:true
       });
     }
-    // 初始化京东头条滚动条
+    // 初始化头条滚动条
     function initToutiaoSlide(){
       var toutiaoSwiper = new Swiper('#toutiaoSlider', {
         direction:'vertical',
