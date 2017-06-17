@@ -27,7 +27,7 @@ angular.module('goodsList.controller', ['goodsList.service'])
     };
 
     // 视图事件
-    $scope.$on('$ionicView.beforeEnter', function (e) {
+    $scope.$on('$ionicView.beforeEnter', function () {
       $scope.func_refreshGoodsList();
     });
 
@@ -35,6 +35,7 @@ angular.module('goodsList.controller', ['goodsList.service'])
     // 下拉刷新的方法
     $scope.func_refreshGoodsList=function(){
       $scope.obj_pagingInfo.pageNum=1;
+      //console.log($scope.obj_pagingInfo.pageNum);
       // 给商品类别赋值
       $scope.obj_pagingInfo.typeNumber=$stateParams.typeNumber;
       var message=JSON.stringify($scope.obj_pagingInfo);
@@ -62,8 +63,9 @@ angular.module('goodsList.controller', ['goodsList.service'])
 
     };
 
-    // 上拉加载更多数据的方法
+    // 上滑加载更多数据的方法
     $scope.func_loadMoreGoodsList=function(){
+      //console.log($scope.obj_pagingInfo)
       // 显示遮罩层
       $ionicLoading.show({
         template: '正在加载数据.....'
@@ -98,7 +100,7 @@ angular.module('goodsList.controller', ['goodsList.service'])
           console.log(reason);
         }
       ).finally(function() {
-
+        //要是从后台请求 放在停止广播后面
         setTimeout(function(){
           $ionicLoading.hide();
         },2000);
