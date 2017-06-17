@@ -60,11 +60,10 @@ angular.module('goodsList.controller', ['goodsList.service'])
         $scope.$broadcast('scroll.refreshComplete');
       });
 
-    }
+    };
 
     // 上拉加载更多数据的方法
     $scope.func_loadMoreGoodsList=function(){
-      console.log(2);
       // 显示遮罩层
       $ionicLoading.show({
         template: '正在加载数据.....'
@@ -74,11 +73,16 @@ angular.module('goodsList.controller', ['goodsList.service'])
       $scope.obj_pagingInfo.pageNum++;
       $scope.obj_pagingInfo.typeNumber=$stateParams.typeNumber;
       var message=JSON.stringify($scope.obj_pagingInfo);
-
+      console.log($scope.obj_pagingInfo);
       // 请求数据
       var promise = GoodsListFty.loadMoreGoodsList(message);
       promise.then(
         function (data) {
+          //假设只有三页数据
+          if($scope.obj_pagingInfo.pageNum==3){
+            $scope.pms_isMoreItemsAvailable=false;
+            return;
+          }
           // 为了代码健壮性做判断
           if (data) {
             $.each(data, function (i, item) {
@@ -97,13 +101,13 @@ angular.module('goodsList.controller', ['goodsList.service'])
 
         setTimeout(function(){
           $ionicLoading.hide();
-        },2000)
+        },2000);
 
         // 停止加载更多的广播
         $scope.$broadcast('scroll.infiniteScrollComplete');
 
-      });;
-    }
+      });
+    };
 
 
     //返回前一页面方法

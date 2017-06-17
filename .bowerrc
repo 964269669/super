@@ -1,5 +1,4 @@
 {
   "directory": "www/lib",
-  "proxy": "http://proxy.piccnet.com.cn:3128",
-  "https-proxy": "http://proxy.piccnet.com.cn:3128"
+  
 }
