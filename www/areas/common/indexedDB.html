@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+  // 获取indexdb对象,为了兼容性的写法
+  // 1、获取对象
+  window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+  window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+  window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+  window.IDBCursor = window.IDBCursor || window.webkitIDBCursor || window.msIDBCursor;
+
+
+  // 2、定义数据库的基本信息
+  var dbInfo = {
+    dbName: 'aptdb',
+    dbVersion: 2012, //用小数会四舍五入，版本号只能越来越大
+    dbInstance: {},
+  };
+
+  // 3、创建数据库
+  var dbContent = window.indexedDB.open(dbInfo.dbName, dbInfo.dbVersion);
+
+  // 判断数据库版本号是否更新了，根据dbversion和dbname去判断，如果没有发生变化就不走这个回调方法了
+  // 但是第一次运行数据库代码，该方法只执行一次，执行完之后会自动调用onsuccess这个回调方法
+  // 创建数据库的表结构
+  dbContent.onupgradeneeded = function (e) {
+    // 4、创建数据库store(表)
+    console.log(e)
+
+    var _db = e.target.result;
+    var storeNames = _db.objectStoreNames;
+
+    if (!storeNames.contains("cart")) {
+      // 创建一个表结构出来
+      _db.createObjectStore("cart", {
+        // 必须有一个属性叫keyPath，这个属性的值必须是能够唯一标识这条数据的值的字段
+        keyPath: "goodsId", //相当于关系型数据库中的主键
+        autoIncrement: true
+      });
+    }
+
+//    var obj1={
+//      name:"康师傅",age:27,goodsId:"100002"
+//    }
+//    var obj2={
+//      name:"康师傅",age:27,goodsId:"100003"
+//    }
+
+
+  }
+  // 打开数据库成功的回调函数
+  // 这个方法里面我们一般执行增删改查数据的操作，而且每次只执行一个操作
+  dbContent.onsuccess=function(e){
+
+    // 5、增删改查操作，开启事物,每次只能做一件事情
+    var _db = e.target.result;
+    // 创建事物
+    var trans = _db.transaction(["cart"], "readwrite")
+    // 通过事物获取我们的表
+    var store = trans.objectStore("cart")
+
+    // 虽然可以在一次成功打开请求的操作中同时操作多次增删改查命令，但是不推荐，以为这样前面的操作就不能被监听到了
+    // 存取的数据必须有一个字段叫goodsId
+    // 增加数据
+//    var req=store.add({
+//      goodsId:'5',
+//      prise:12.3,
+//      name:"衣服",
+//      size:"M",
+//      age:99
+//    })
+
+    // 修改数据
+//    var req = store.put({
+//      goodsId:'asdf111',
+//      prise:34.67,
+//      name:"衣服",
+//      size:"h"
+//    })
+
+    // 删除数据
+//    var req = store.delete('asdf111')
+
+    // 查询数据
+//    var req = store.get("1234");
+
+    // 删除所有数据
+//    var req = store.clear();
+
+
+    // 数据添加成功的回调函数
+//    req.onsuccess=function(e){
+//      console.log(e);
+//      console.log("数据添加陈宫");
+//    }
+    // 数据添加失败的回调函数
+//    req.onerror=function(){
+//      console.log("数据添加失败");
+//    }
+
+
+
+    // 查询所有数据（用了游标）
+    var cursor=store.openCursor();
+    var data=[];
+
+    cursor.onsuccess=function(e){
+      var result = e.target.result;
+      if (result && result !== null) {
+        data.push(result.value);
+        // 重新执行onsuccess句柄,continue语句必须写
+        result.continue();
+      }
+      console.log(data);
+    }
+    cursor.onerror=function(){
+
+    }
+
+
+  }
+
+  // 打开数据库失败的回调函数
+  dbContent.onerror=function(e){
+
+  }
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

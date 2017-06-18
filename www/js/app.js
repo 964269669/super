@@ -1,5 +1,5 @@
 // Ionic Starter App
-angular.module('starter', ['ionic','route','config','global','ionicLazyLoad'])
+angular.module('starter', ['ionic','route','config','global','ionicLazyLoad','indexdb','commonJs'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
