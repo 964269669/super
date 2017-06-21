@@ -1,6 +1,6 @@
 //tab的控制器
 angular.module('tab.controller', [])
-  .controller('TabCtrl',function ($scope,$state) {
+  .controller('TabCtrl',function ($scope,$state,IndexdbJs) {
 
     // 绑定数据对象的值
     $scope.obj_cartCount={
@@ -8,7 +8,8 @@ angular.module('tab.controller', [])
     };
 
     $scope.$on('$ionicView.beforeEnter', function (e) {
-      /*IndexdbJs.getAll("cart",function(data){
+      IndexdbJs.getAll("cart",function(data){
+		      console.log(data)
         if(data.length>0)
         {
           $scope.obj_cartCount.count="0";
@@ -16,7 +17,7 @@ angular.module('tab.controller', [])
             $scope.obj_cartCount.count=parseInt($scope.obj_cartCount.count)+parseInt(data[i].number);
           }
         }
-      },null)*/
+      },null)
     });
 
   })
