@@ -81,10 +81,10 @@ angular.module('goodsList.controller', ['goodsList.service'])
       promise.then(
         function (data) {
           //假设只有三页数据
-          if($scope.obj_pagingInfo.pageNum==3){
+          /*if($scope.obj_pagingInfo.pageNum==3){
             $scope.pms_isMoreItemsAvailable=false;
             return;
-          }
+          }*/
           // 为了代码健壮性做判断
           if (data) {
             $.each(data, function (i, item) {
