@@ -4,7 +4,7 @@ angular.module('route', ['guidePage.route','tab.route','home.route','category.ro
 		.config(function($stateProvider, $urlRouterProvider) {
 
 				// 第一次登陆
-				if(localStorage["isFirst"])
+				if(localStorage["hasLogin"])
 				{
 						$urlRouterProvider.otherwise('/tab/home');
 				}
